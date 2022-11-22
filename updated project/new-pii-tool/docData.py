@@ -88,18 +88,18 @@ class docData:
             matched_vals = 0
             
             a = open(filename, 'r')
-            parser = ijson.parse(a)
-            for prefix, event, value in parser:
-                self.total += 1
-                if re.search(rule, prefix, re.IGNORECASE):
-                    if rules_dict.get(rule) != '':
-                        r = re.compile(rules_dict.get(rule))
-                        if r.match(value):
-                            matched_vals += 1
-                            #string = "Location: %s, Value: %s" % (prefix, value)
-                            report_data.append([rule, prefix, value, "", "", "", "", "", "", ""])
-                            field = prefix
-                            matched_rule = rule
+            for line in a:
+                for word in line.split():
+                    if re.search(rule, line, re.IGNORECASE):
+                        if rules_dict.get(rule) != '':
+                            r = re.compile(rules_dict.get(rule))
+                            print(word)
+                            if r.match(word):
+                                matched_vals += 1
+                                #string = "Location: %s, Value: %s" % (prefix, value)
+                                report_data.append([rule, line, word, "", "", "", "", "", "", ""])
+                                field = line
+                                matched_rule = rule
 
         self.write_report(report_data)    
 
