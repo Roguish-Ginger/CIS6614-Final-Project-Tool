@@ -8,6 +8,9 @@ Current build and modifications to the above project can be found in this reposi
 Commands for testing: 
 
 py pii_tool.py -i tests/employees.json
+
 py pii_tool.py -i tests/people.csv
+
 py pii_tool.y -d hostname username database tablename
+
 py pii_tool.py -i tests/string.txt
