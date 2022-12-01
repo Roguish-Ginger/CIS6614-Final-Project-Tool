@@ -41,9 +41,9 @@ def main():
         filename = args.filename.name
 
     rules_dict = rules()   #rules from rules file
-    if filename.endswith('.json'):
-        jsonObj = jsonData()
-        jsonObj.run(rules_dict, sensitivity_scores, filename)
+    #if filename.endswith('.json'):
+    #    jsonObj = jsonData()
+    #    jsonObj.run(rules_dict, sensitivity_scores, filename)
  
     if args.db:
         sqlObj = sqlData()
@@ -53,7 +53,7 @@ def main():
         csvObj = csvData(filename)
         csvObj.run(rules_dict, sensitivity_scores)
     
-    if filename.endswith('.txt'):
+    else:
         docObj = docData()
         docObj.run(rules_dict, sensitivity_scores, filename)
       

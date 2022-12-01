@@ -87,19 +87,28 @@ class docData:
             field = ""
             matched_vals = 0
             
-            a = open(filename, 'r')
+            a = open(filename, 'r', errors="ignore")
             for line in a:
-                for word in line.split():
-                    if re.search(rule, line, re.IGNORECASE):
-                        if rules_dict.get(rule) != '':
-                            r = re.compile(rules_dict.get(rule))
-                            print(word)
+                found = False
+                if re.search(rules_dict.get(rule), line, re.IGNORECASE):
+                    found = True
+                    if rules_dict.get(rule) != '':
+                        r = re.compile(rules_dict.get(rule))
+                        for word in line.split():
                             if r.match(word):
                                 matched_vals += 1
                                 #string = "Location: %s, Value: %s" % (prefix, value)
                                 report_data.append([rule, line, word, "", "", "", "", "", "", ""])
                                 field = line
                                 matched_rule = rule
+                                Found = False
+                        if(found == True):
+                            matched_vals += 1
+                            #string = "Location: %s, Value: %s" % (prefix, value)
+                            report_data.append([rule, line, line, "", "", "", "", "", "", ""])
+                            field = line
+                            matched_rule = rule
+                            Found = False
 
         self.write_report(report_data)    
 
